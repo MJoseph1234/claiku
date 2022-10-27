@@ -7,8 +7,8 @@ A CLI Haiku assistant
 
 [Picture or gif of claiku in action]
 
-> a CLI haiku tool
-> to count syllables per line
+> a CLI haiku tool  
+> to count syllables per line  
 > in your great new poems
 
 ## CLI Options
