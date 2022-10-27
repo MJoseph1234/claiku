@@ -114,3 +114,8 @@ dmypy.json
 .pyre/
 
 haikus.txt
+extras.md
+
+# Sublime project and workspace
+.sublime-project
+.sublime-workspace
