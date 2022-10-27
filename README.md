@@ -9,7 +9,7 @@ A CLI Haiku assistant
 
 > a CLI haiku tool  
 > to count syllables per line  
-> in your great new poems  
+> in your great new poems
 
 ## CLI Options
 
@@ -21,7 +21,7 @@ Use the `-s` or `--short` flag to run **Claiku** in a short-form, 3-5-3 syllable
 
 > seasons pass  
 > but claiku remains  
-> write haikus  
+> write haikus
 
 ### Color
 
