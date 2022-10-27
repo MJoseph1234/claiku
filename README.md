@@ -19,9 +19,9 @@ Use the `-s` or `--short` flag to run **Claiku** in a short-form, 3-5-3 syllable
 
 [picture or gif of short form]
 
-> seasons pass
-> but claiku remains
-> write haikus
+> seasons pass  
+> but claiku remains  
+> write haikus  
 
 ### Color
 
