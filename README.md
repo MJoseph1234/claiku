@@ -29,12 +29,11 @@ Use `--no-color` to run the program without using ANSI color codes in the displa
 
 ## Saving your poems
 
-Currently **Claiku** saves poems by appending them into a `haikus.txt` file in the current directory. There's currently no way to change this.
+By default, **Claiku** saves poems by appending them into a `haikus.txt` file in the current directory. You can change the output file by specifying a file after the  `-o` or `--output` flag.
 
 ## Future
 
  - Additional options for saving your haiku to file
- 	- specifying a file name and path
  	- options to include date and timestamps so you can see when you wrote all of your haikus
  - Saving user configuration so flags and filepaths don't have to be specified every time
  - rewrite in Rust because I'm learning Rust

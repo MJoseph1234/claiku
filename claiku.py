@@ -40,37 +40,42 @@ def main():
 		disp_args.update({'color_good': None, 'color_bad': None})
 
 	update_disp = make_display_function(**disp_args)
+	init_disp = make_display_initializer(**disp_args)
 
 	p = tui_control.Prompt(c)
-	haiku = p.get_inp(initialize_display, update_disp)
+	haiku = p.get_inp(init_disp, update_disp)
+
 	if haiku is None or haiku == ['', '', '']:
 		c.xy = (1, 2)
 		return
-	display_haiku(c, haiku)
+	print_centered_haiku(c, haiku)
 	c.xy = (1, c.y + 1)
 	c.pr('Beautiful!\n')
 
-	save(haiku)
+	save(args.output, haiku)
 
 def get_cli_args():
 	parser = argparse.ArgumentParser(description = 'a cli haiku assistant')
-	#TODO no color mode
 	parser.add_argument('-s', '--short', action = 'store_true',
 		help = 'use a short-form 3-5-3 syllable pattern')
 	parser.add_argument('--no-color', action = 'store_true',
 		help = 'disable color output')
+	parser.add_argument('-o', '--output', default = 'haikus.txt',
+		help = 'file path and name to save completed haikus')
 
 	return(parser.parse_args())
 
-def initialize_display(c):
-	xy = c.xy
-	for line in range(3):
-		c.x = 50
-		c.font_color = 'red'
-		c.pr(f'0 syllables')
-		c.y += 1
-	c.font_color = None
-	c.xy = xy
+def make_display_initializer(color_good = 'green', color_bad = 'red'):
+	def initialize_display(c):
+		xy = c.xy
+		for line in range(3):
+			c.x = 50
+			c.font_color = color_bad
+			c.pr(f'0 syllables')
+			c.y += 1
+		c.font_color = None
+		c.xy = xy
+	return(initialize_display)
 
 def make_display_function(one = 5, two = 7, three = 5, color_good = 'green', color_bad = 'red'):
 	def update_display(c, y_index, index, inp):
@@ -87,25 +92,7 @@ def make_display_function(one = 5, two = 7, three = 5, color_good = 'green', col
 	
 	return update_display
 
-def update_syllable_display(c, y_index, index, inp):
-	xy = c.xy
-	c.x = 50
-	count = count_syllables(inp[y_index])
-	if y_index == 1:
-		if count == 7:
-			c.font_color = 'green'
-		else:
-			c.font_color = 'red'
-	else:
-		if count == 5:
-			c.font_color = 'green'
-		else:
-			c.font_color = 'red'
-	c.pr(f'{count} syllables')
-	c.font_color = None
-	c.xy = xy 
-
-def display_haiku(c, haiku, width = 80):
+def print_centered_haiku(c, haiku, width = 80):
 	c.xy = (1, 1)
 	c.pr(b'\x1b[0K')
 	for line in haiku:
@@ -118,8 +105,8 @@ def print_centered_line(c, width, line):
 	c.x = int(start)
 	c.pr(line)
 
-def save(haiku):
-	with open('haikus.txt', 'a') as file:
+def save(filepath, haiku):
+	with open(filepath, 'a') as file:
 		file.write('\n\n')
 		file.write('\n'.join(haiku))
 
