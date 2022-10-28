@@ -38,6 +38,7 @@ def main():
 	if haiku is None or haiku == ['', '', '']:
 		c.xy = (1, 2)
 		return
+
 	print_centered_haiku(c, haiku)
 	c.xy = (1, c.y + 1)
 	c.pr('Beautiful!\n')
@@ -84,10 +85,10 @@ def make_display_function(one = 5, two = 7, three = 5, color_good = 'green', col
 
 def print_centered_haiku(c, haiku, width = 80):
 	c.xy = (1, 1)
-	c.pr(b'\x1b[0K')
+	c._pr(b'\x1b[0K')
 	for line in haiku:
 		c.xy = (1, c.y + 1)
-		c.pr(b'\x1b[0K')
+		c._pr(b'\x1b[0K')
 		print_centered_line(c, width, line)
 
 def print_centered_line(c, width, line):

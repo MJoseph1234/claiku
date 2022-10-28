@@ -24,10 +24,6 @@ class Cursor():
 
 	@staticmethod
 	def _pr(inp):
-		#TODO printing changes x (and possibly y, if the string is long enough)
-		#idea: separate into private and public print functions
-		#one that counts and updates x,y and a private one that does not
-		#private function would be used for escape sequences
 		if isinstance(inp, str):
 			inp = bytes(inp, 'utf-8')
 		os.write(1, inp)
@@ -171,25 +167,25 @@ class Cursor():
 		self._pr('\x1b[{}m'.format(styles[style]))
 		self._font_style = style
 
-	# def move_up(self, spaces):
-	# 	self._pr(f'\x1b[{spaces}A')
-	# 	if self.y is not None:
-	# 		self._y = self._y - spaces
+	def move_up(self, spaces):
+		self._pr(f'\x1b[{spaces}A')
+		if self.y is not None:
+			self._y = self._y - spaces
 
-	# def move_down(self, spaces):
-	# 	self._pr(f'\x1b[{spaces}B')
-	# 	if self.y is not None:
-	# 		self._y = self._y + spaces
+	def move_down(self, spaces):
+		self._pr(f'\x1b[{spaces}B')
+		if self.y is not None:
+			self._y = self._y + spaces
 
-	# def move_right(self, spaces):
-	# 	self._pr(f'\x1b[{spaces}C')
-	# 	if self.x is not None:
-	# 		self._x = self._x + spaces
+	def move_right(self, spaces):
+		self._pr(f'\x1b[{spaces}C')
+		if self.x is not None:
+			self._x = self._x + spaces
 
-	# def move_left(self, spaces):
-	# 	self._pr(f'\x1b[{spaces}D')
-	# 	if self.x is not None:
-	# 		self._x = self._x - spaces
+	def move_left(self, spaces):
+		self._pr(f'\x1b[{spaces}D')
+		if self.x is not None:
+			self._x = self._x - spaces
 
 class InputContext():
 	def __enter__(self):

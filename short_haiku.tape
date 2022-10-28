@@ -1,4 +1,4 @@
-# GIFs created using VHS (https://github.com/charmbracelet/vhs#settings)
+# GIFs created using VHS (https://github.com/charmbracelet/vhs)
 
 Output short_haiku.gif
 
