@@ -116,6 +116,9 @@ dmypy.json
 haikus.txt
 extras.md
 
+# Mac stuff
+*.DS_Store
+
 # Sublime project and workspace
 *.sublime-project
 *.sublime-workspace
