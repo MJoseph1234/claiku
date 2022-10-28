@@ -27,12 +27,6 @@ def main():
 
 	args = get_cli_args()
 
-	c = tui_control.Cursor()
-	c.pr(b'\x1b[2J')
-	c.xy = (1, 1)
-	c.pr('Enter your haiku below')
-	c.xy = (1, c.y + 1)
-
 	disp_args = {}
 	if args.short:
 		disp_args = {'one': 3, 'two': 5, 'three': 3}
@@ -42,6 +36,11 @@ def main():
 	update_disp = make_display_function(**disp_args)
 	init_disp = make_display_initializer(**disp_args)
 
+	c = tui_control.Cursor()
+	c.pr(b'\x1b[2J')
+	c.xy = (1, 1)
+	c.pr('Enter your haiku below')
+	c.xy = (1, c.y + 1)
 	p = tui_control.Prompt(c)
 	haiku = p.get_inp(init_disp, update_disp)
 
@@ -65,7 +64,7 @@ def get_cli_args():
 
 	return(parser.parse_args())
 
-def make_display_initializer(color_good = 'green', color_bad = 'red'):
+def make_display_initializer(color_bad = 'red'):
 	def initialize_display(c):
 		xy = c.xy
 		for line in range(3):
