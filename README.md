@@ -5,7 +5,7 @@ A CLI Haiku assistant
 
 **Claiku** helps you write haikus by counting and showing the number of syllables in each line of your poem.
 
-!()[long_haiku.gif]
+![](long_haiku.gif)
 
 > a CLI haiku tool  
 > to count syllables per line  
