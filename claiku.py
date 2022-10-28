@@ -1,13 +1,4 @@
 """Command line interface haiku assistant
-
-a CLI haiku tool
-to count syllables per line
-in your great new poems
-
-seasons pass
-but claiku remains
-write haikus
-
 """
 
 __author__ = "Michael Joseph"

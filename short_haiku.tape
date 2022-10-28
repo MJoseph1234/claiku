@@ -1,3 +1,5 @@
+# GIFs created using VHS (https://github.com/charmbracelet/vhs#settings)
+
 Output short_haiku.gif
 
 Set FontSize 20

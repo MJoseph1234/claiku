@@ -15,7 +15,7 @@ A CLI Haiku assistant
 
 ### Short Form
 
-Use the `-s` or `--short` flag to run **Claiku** in a short-form, 3-5-3 syllable mode.
+Use the `-s` or `--short` flag to run **Claiku** in a short(er) form, 3-5-3 syllable mode.
 
 ![](short_haiku.gif)
 

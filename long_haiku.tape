@@ -1,3 +1,5 @@
+# GIFs created using VHS (https://github.com/charmbracelet/vhs#settings)
+
 Output long_haiku.gif
 
 Set FontSize 20
@@ -19,7 +21,7 @@ Enter
 Type "in your three-line poem"
 Sleep 2
 Up
-Right 22
+Right 6
 Sleep 1
 Backspace 21
 Type " syllables per line"

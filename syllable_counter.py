@@ -1,4 +1,4 @@
-"""sylable counter
+"""syllable counter
 given a string, returns the number of sylables in the string
 """
 
@@ -22,6 +22,9 @@ class SyllableCounterBase():
         raise NotImplementedError
 
 class NaiveSyllableCounter(SyllableCounterBase):
+    """ A simple syllable counter based on the number of vowels in
+    the word, adjusted by a few simple rules.
+    """
     def __init__(self):
         super().__init__()
 
