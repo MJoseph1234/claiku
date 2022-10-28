@@ -17,7 +17,7 @@ A CLI Haiku assistant
 
 Use the `-s` or `--short` flag to run **Claiku** in a short-form, 3-5-3 syllable mode.
 
-[picture or gif of short form]
+![](short_haiku.gif)
 
 > seasons pass  
 > but claiku remains  
@@ -34,6 +34,6 @@ By default, **Claiku** saves poems by appending them into a `haikus.txt` file in
 ## Future
 
  - Additional options for saving your haiku to file
- 	- options to include date and timestamps so you can see when you wrote all of your haikus
+ 	- options to include date and timestamps so you can track when you write all of your haikus
  - Saving user configuration so flags and filepaths don't have to be specified every time
  - rewrite in Rust because I'm learning Rust

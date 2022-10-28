@@ -64,7 +64,7 @@ def get_cli_args():
 
 	return(parser.parse_args())
 
-def make_display_initializer(color_bad = 'red'):
+def make_display_initializer(color_bad = 'red', **kwargs):
 	def initialize_display(c):
 		xy = c.xy
 		for line in range(3):
