@@ -201,7 +201,13 @@ class Prompt():
 		self.index = 0
 		self.c = cursor
 
-	def get_inp(self, pre_loop = None, loop_start = None):
+	def _rd(self, bytes = 1):
+		"""get the next byte from the user input
+		return the unicode integer representation of the byte
+		"""
+		return(ord(sys.stdin.read(1)))
+
+	def run(self, pre_loop = None, loop_start = None):
 		c = self.c
 		index = 0
 		y_index = 0
@@ -214,7 +220,8 @@ class Prompt():
 				if loop_start is not None:
 					loop_start(c, y_index, index, inp)
 
-				char = ord(sys.stdin.read(1))
+				#char = ord(sys.stdin.read(1))
+				char = self._rd(1)
 				
 				if char == 3: #CTRL-C
 					return(None)
@@ -267,3 +274,4 @@ class Prompt():
 							c.x = min(index + 1, len(inp[y_index]) + 1)
 							index = min(index, len(inp[y_index]))
 		return(inp)
+

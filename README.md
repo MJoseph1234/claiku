@@ -23,11 +23,15 @@ Use the `-s` or `--short` flag to run **Claiku** in a short(er) form, 3-5-3 syll
 > but claiku remains  
 > write haikus
 
-### Color
+### Removing Color
 
 Use `--no-color` to run the program without using ANSI color codes in the display or output.
 
-### Saving your poems
+### Quiet
+
+Use the `-q` or `--quiet` flag to skip pritty-printing your new haiku to your terminal. Otherwise, **Claiku** will clear the terminal and display your completed poem so you can sit back and enjoy it or show it off to a friend.
+
+### Saving Your Poems
 
 By default, **Claiku** saves poems by appending them into a `haikus.txt` file in the current directory. You can change the output file by specifying a file after the  `-o` or `--output` flag.
 

@@ -36,7 +36,7 @@ def main():
 	c.pr('Enter your haiku below')
 	c.xy = (1, c.y + 1)
 	p = tui_control.Prompt(c)
-	haiku = p.get_inp(init_disp, update_disp)
+	haiku = p.run(init_disp, update_disp)
 
 	if haiku is None or haiku == ['', '', '']:
 		c.xy = (1, 2)
