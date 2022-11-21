@@ -267,29 +267,3 @@ class Prompt():
 							c.x = min(index + 1, len(inp[y_index]) + 1)
 							index = min(index, len(inp[y_index]))
 		return(inp)
-
-"""
-prompt features:
-history (up or down arrows)
-	mutually exclusive with up or down arrows to move through multiple lines of text
-move cursor left or right through current line of text
-	cant move left or right past boundaries of text, or sometimes can
-ability to quit out
-interrupts if data comes in from other sources (like a chat)
-backspacing
-deleting out a character
-enter key to accept
-enter key to move down a line
-having a default value
-input validation
-	(require max or min length, numeric, yes or no, etc.)
-
-behaviors
-	what to do with up or down arrow
-	what to do with backspace
-	what to do with left or right arrows
-	what to do with inderted characters
-	what to do with ctrl c
-	what to do with enter
-	what to do with any other special characters
-"""

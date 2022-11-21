@@ -24,11 +24,15 @@ class SyllableCounterBase():
 class NaiveSyllableCounter(SyllableCounterBase):
     """ A simple syllable counter based on the number of vowels in
     the word, adjusted by a few simple rules.
+
+    Rules are taken from the example at https://github.com/mholtzscher/syllapy
     """
     def __init__(self):
         super().__init__()
 
     def get_count(word):
+        """A real simple syllable counter 
+        """
         if not word or word == '':
             return(0)
         count = 0

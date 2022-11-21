@@ -3,7 +3,7 @@
 A CLI Haiku assistant
 ***
 
-**Claiku** helps you write haikus by counting and showing the number of syllables in each line of your poem.
+**Claiku** helps you write haikus from the command line by counting and showing the number of syllables in each line of your poem.
 
 ![](long_haiku.gif)
 
@@ -27,9 +27,11 @@ Use the `-s` or `--short` flag to run **Claiku** in a short(er) form, 3-5-3 syll
 
 Use `--no-color` to run the program without using ANSI color codes in the display or output.
 
-## Saving your poems
+### Saving your poems
 
 By default, **Claiku** saves poems by appending them into a `haikus.txt` file in the current directory. You can change the output file by specifying a file after the  `-o` or `--output` flag.
+
+While running **Claiku**, use `CTRL+C` to exit the program at any time without saving.
 
 ## Future
 
