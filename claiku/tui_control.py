@@ -6,7 +6,6 @@ import os
 import termios
 import tty
 
-
 class Cursor():
 	"""
 	class representing the terminal cursor with methods to get the cursor
@@ -201,11 +200,11 @@ class Prompt():
 		self.index = 0
 		self.c = cursor
 
-	def _rd(self, bytes = 1):
+	def _rd(self, byte_ct = 1):
 		"""get the next byte from the user input
 		return the unicode integer representation of the byte
 		"""
-		return(ord(sys.stdin.read(1)))
+		return(ord(sys.stdin.read(byte_ct)))
 
 	def run(self, pre_loop = None, loop_start = None):
 		c = self.c
@@ -226,10 +225,11 @@ class Prompt():
 				if char == 3: #CTRL-C
 					return(None)
 				
-				elif 32 <= char <= 126: #all printable characters
+				elif 32 <= char <= 126: #printable characters
 					inp[y_index] = inp[y_index][:index] + chr(char) + inp[y_index][index + 1:]
-					c.x -= max(0, index)
-					c.pr(inp[y_index])
+					#c.x -= max(0, index)
+					#c.pr(inp[y_index])
+					c.pr(inp[y_index][index:])
 					index += 1
 					c.x += index - len(inp[y_index])
 
@@ -243,15 +243,19 @@ class Prompt():
 				elif char == 127: #backspace
 					if index > 0:
 						inp[y_index] = inp[y_index][:index - 1] + inp[y_index][index:]
-						c.x -= max(0, index)
-						c.pr(inp[y_index] + ' ') #extra space clears right-most character
+						#c.x -= max(0, index)
+						#c.pr(inp[y_index] + ' ') #extra space clears right-most character
+						# index -= 1
+						# c.x += index - (len(inp[y_index]) + 1)
+						c.x -= 1
 						index -= 1
+						c.pr(inp[y_index][index:] + ' ')
 						c.x += index - (len(inp[y_index]) + 1)
 						
 				
 				elif char == 27: #arrow keys
-					next1, next2 = ord(sys.stdin.read(1)), ord(sys.stdin.read(1))
-					if next1 == 91:
+					next1, next2 = self._rd(1), self._rd(1)
+					if next1 == 91: #[
 						if next2 == 68: #left
 							if index > 0:
 								c.x -= 1

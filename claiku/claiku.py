@@ -12,6 +12,7 @@ __version__ = "0.1"
 import argparse
 
 import tui_control
+from os import environ
 from syllable_counter import count_syllables
 
 def main():
@@ -22,13 +23,12 @@ def main():
 		print(f'Claiku {__version__}')
 		return
 
-	display_options = {}
-	if args.no_color:
-		display_options = {'color_good': None, 'color_bad': None}
-	elif args.short:
-		display_options = {'one': 3, 'two': 5, 'three': 3}
-	update_disp = make_display_updater(**display_options)
-	init_disp = make_display_initializer(**display_options)
+	sd = SyllableDisplay()
+	if args.no_color or 'NO_COLOR' in environ:
+		sd.color_good = None
+		sd.color_bad = None
+	if args.short:
+		sd.syllable_pattern = [3, 5, 3]
 
 	c = tui_control.Cursor()
 	c.pr(b'\x1b[2J')
@@ -36,7 +36,7 @@ def main():
 	c.pr('Enter your haiku below')
 	c.xy = (1, c.y + 1)
 	p = tui_control.Prompt(c)
-	haiku = p.run(init_disp, update_disp)
+	haiku = p.run(sd.initialize_display, sd.update_display)
 
 	if haiku is None or haiku == ['', '', '']:
 		c.xy = (1, 2)
@@ -66,32 +66,36 @@ def get_cli_args():
 
 	return(parser.parse_args())
 
-def make_display_initializer(color_bad = 'red', **kwargs):
-	def initialize_display(c):
-		xy = c.xy
-		for line in range(3):
-			c.x = 50
-			c.font_color = color_bad
-			c.pr(f'0 syllables')
-			c.y += 1
-		c.font_color = None
-		c.xy = xy
-	return(initialize_display)
+class SyllableDisplay():
+	def __init__(self, color_good = 'green', color_bad = 'red', 
+				 syllable_pattern = [5, 7, 5], width = 80):
+		self.color_good = color_good
+		self.color_bad = color_bad
+		self.syllable_pattern = syllable_pattern
+		self.width = width
 
-def make_display_updater(one = 5, two = 7, three = 5, color_good = 'green', color_bad = 'red'):
-	def update_display(c, y_index, index, inp):
-		xy = c.xy
-		c.x = 50
+	def initialize_display(self, cursor):
+		xy = cursor.xy
+		for line in range(3):
+			cursor.x = 50
+			cursor.font_color = self.color_bad
+			cursor.pr(f'0 syllables')
+			cursor.y += 1
+		cursor.font_color = None
+		cursor.xy = xy
+
+	def update_display(self, cursor, y_index, index, inp):
+		xy = cursor.xy
+		cursor.x = 50
 		count = count_syllables(inp[y_index])
-		if count == [one, two, three][y_index]:
-			c.font_color = color_good
+		if count == self.syllable_pattern[y_index]:
+			cursor.font_color = self.color_good
 		else:
-			c.font_color = color_bad
-		c.pr(f'{count} syllables')
-		c.font_color = None
-		c.xy = xy
-	
-	return update_display
+			cursor.font_color = self.color_bad
+
+		cursor.pr(f'{count} syllable{"s" if count != 1 else " "}')
+		cursor.font_color = None
+		cursor.xy = xy
 
 def print_centered_haiku(c, haiku, width = 80):
 	c.xy = (1, 1)

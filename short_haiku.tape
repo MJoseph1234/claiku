@@ -6,7 +6,7 @@ Set FontSize 20
 Set Width 1200
 Set Height 600
 
-Type "python3 claiku.py -s"
+Type "python3 claiku -s"
 Sleep 1
 Enter
 Sleep 1

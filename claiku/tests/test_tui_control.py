@@ -2,12 +2,81 @@
 
 import tui_control
 import time
+import unittest
+from io import StringIO
+
+class MockCursor(tui_control.Cursor):
+    def __init__(self):
+        super().__init__()
+        self.output_buffer = ''
+
+	def _pr(text):
+		self.output_buffer += str(text)
+
+
+
+class MockPrompt(tui_control.Prompt):
+	def __init__(self):
+		super().__init__()
+		self.input_buffer = ''
+
+	def _rd(self, inp):
+		return(ord(self.inp.read(1)))
+"""
+
+Basically, we'll test the cursor by telling it to do a bunch of
+movements using the standard cursor class methods. 
+
+Our mock cursor is writing those movements to a buffer instead of 
+standard output so we'll read the output buffer it created to make 
+sure it's what we expect
+
+Then we'll test the Prompt by giving it a stream of fake user input 
+(the mocked prompt takes an input string instead of reading from stdin) 
+and we'll read the cursor's output buffer again to make sure it's what 
+we expect. we can also read the prompt's return value to make sure it's
+as expected
+
+TODO: some way to mock our InputContext class
+TODO: provide some way to take a whole string, then chunk it out
+#and pass it to _rd so _rd takes one byte at a time and does the thing
+so like i pass it a string, including a bunch of arrow keys, enters
+backspaces and all that and it sorts it out and returns the final string
+
+I think StringIO is the right way to do this, where in the test case
+we'd set inp = StringIO('this is the string') and read it off one at a time
+
+"""
+
+class TestCursorMovement(unittest.TestCase):
+	def setUp(self):
+		self.c = MockCursor()
+
+class TestPrompt(unittest.TestCase):
+	def setUp(self):
+		self.p = MockPrompt()
+		self.p.c = MockCursor()
+
+	def test_ctrlc(self):
+		cases = [('\x03', '', None),
+				 ('abc\x03', 'abc', None)
+				]
+
+		for i in range(len(cases)):
+			with self.subTest(i = i):
+				self.p.inp = cases[i][0]
+				rslt = self.p.run()
+				self.assertEqual(self.p.c.output_buffer, cases[i][1])
+				self.assertEqual(rslt, cases[i][2])
+
+
+
+
 
 class TestCursor(tui_control.Cursor):
 	def pr(self, inp):
 		super().pr(inp)
 		time.sleep(0.25)
-
 def test_cursor_controls():
 	c = TestCursor(0, 0)
 	c.pr(b'\x1b[2J')
@@ -85,5 +154,4 @@ def test_cursor_controls():
 
 
 if __name__ == '__main__':
-
 	test_cursor_controls()
