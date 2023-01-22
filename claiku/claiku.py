@@ -73,6 +73,7 @@ class SyllableDisplay():
 		self.color_bad = color_bad
 		self.syllable_pattern = syllable_pattern
 		self.width = width
+		self.prev_count = [0, 0, 0]
 
 	def initialize_display(self, cursor):
 		xy = cursor.xy
@@ -85,9 +86,13 @@ class SyllableDisplay():
 		cursor.xy = xy
 
 	def update_display(self, cursor, y_index, index, inp):
+		count = count_syllables(inp[y_index])
+		if count == self.prev_count[y_index]:
+			return
+		self.prev_count[y_index] = count
+		
 		xy = cursor.xy
 		cursor.x = 50
-		count = count_syllables(inp[y_index])
 		if count == self.syllable_pattern[y_index]:
 			cursor.font_color = self.color_good
 		else:
